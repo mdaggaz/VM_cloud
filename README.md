@@ -90,6 +90,6 @@ Von Anfang an wird dieses System mit einer Datenbank umgesetzt, zum Beispiel mit
 
 ### 7.2 Finaler Deployment-Prozess
 
-Die Anwendung soll auf einem zentralen Hochschulserver gehostet werden. Der Zugriff erfolgt ausschließlich über das interne Netz oder VPN. Ein Reverse-Proxy (z. B. Nginx) mit SSL-Zertifikat (Let’s Encrypt) ist möglich. Die genaue Deployment-Methode hängt von den endgültigen Anforderungen ab.
+Die Anwendung soll auf einem zentralen Hochschulserver gehostet werden. Der Zugriff erfolgt ausschließlich über das interne Netz oder VPN.
 
 ---
