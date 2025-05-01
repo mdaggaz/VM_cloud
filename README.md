@@ -34,7 +34,32 @@ Das System stellt sicher, dass:
 
 ---
 ## 3. Verzeichnisstruktur des VM Cloud Systems
-TODO
+
+```text
+VMCloud/
+├── backend/
+│   └── (backend-Dateien)
+├── frontend/
+│   └── (frontend-Dateien)
+├── noVNC/
+│   └── (noVNC-Dateien)
+├── OS_VM_CLOUD/
+│   ├── REMnux.ova
+│   ├── Windows10.ova
+│   ├── Ubuntu.ova
+│   └── ...
+├── VMS_PER_USER/
+│   ├── hamza/
+│   │   ├── REMnux/
+│   │   └── Windows10/
+│   ├── mahdi/
+│   │   ├── Ubuntu/
+│   │   └── WindowsXP/
+│   ├── salma/
+│   │   ├── Ubuntu/
+│   │   └── REMnux/
+│   └── ...
+```
 ---
 ## 4.Benutzerrollen
 
