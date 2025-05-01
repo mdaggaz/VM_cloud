@@ -33,21 +33,45 @@ Das System stellt sicher, dass:
 - Visualisierung über `vnc.html`
 
 ---
-## 3.Benutzerrollen
+## 3. Verzeichnisstruktur des VM Cloud Systems
++---backend
+ª   	--backend--
++---frontend
+ª  		--frontend--
++---noVNC
+ª     -- noVNC --
++---OS_VM_CLOUD
+    +---REMnux.ova
+    +---Windows10.ova
+    +---Ubuntu.ova
+	+---Ubuntu.ova
+	+--- ...
++---VMS_PER_USER
+    +---hamza
+        +---REMnux
+        +---Windows10
+    +---mahdi
+        +---WindowsXP
+        +---Ubuntu
+    +---salma
+        +---Ubuntu
+        +---REMnux
+    +--- ....
+---
+## 4.Benutzerrollen
 
 [Benutzer- und Administratorrechte im VM Cloud System](Benutzer_und_Administratorrechte.md)
 
 ---
-## 4. Sicherheit
+## 5. Sicherheit
 
 - Authentifizierung mit JWT + Rollentrennung
 - Jeder Benutzer kann nur seine eigenen VMs sehen und verwalten
 - Überprüfung des Benutzernamens bei jeder API-Anfrage
 - Dynamisches Port-Forwarding für VNC:  [Verwaltung der VNC-Ports für virtuelle Maschinen mit VirtualBox](Verwaltung_VNC-Ports_VMs.md)
 
-  
 ---
-## 5. Wie benutzt ein Benutzer das System
+## 6. Wie benutzt ein Benutzer das System
 Ein Benutzer meldet sich über die Weboberfläche mit seinem Benutzernamen und Passwort an. Nach erfolgreicher Authentifizierung erhält er ein JSON Web Token (JWT), das im Browser gespeichert wird und für alle weiteren Anfragen erforderlich ist. Auf dem Dashboard sieht der Benutzer nur seine eigenen virtuellen Maschinen. Er kann bestehende VMs starten, stoppen, löschen oder konfigurieren.
 
 Wenn der Benutzer eine neue virtuelle Maschine erstellen möchte, muss er kein eigenes Image hochladen. Stattdessen wählt er eine vorhandene .ova-Vorlage aus, die bereits zentral auf dem Server im Ordner OS_VM_CLOUD/ gespeichert ist. Diese Vorlagen beinhalten z. B. Ubuntu, Windows10 oder REMnux. Die ausgewählte Vorlage wird automatisch importiert und in einem persönlichen Verzeichnis unter VMS_PER_USER/<benutzername>/ gespeichert.
@@ -55,13 +79,13 @@ Wenn der Benutzer eine neue virtuelle Maschine erstellen möchte, muss er kein e
 Nach dem Start der VM wird ein freier VNC-Port automatisch zugewiesen. Der Benutzer kann dann über die Weboberfläche den Desktop der VM direkt im Browser mit noVNC anzeigen lassen – ohne zusätzliche Software installieren zu müssen. Alle Schritte sind über eine intuitive Benutzeroberfläche ausführbar.
 
 ---
-## 6. Zukünftige Erweiterungen
+## 7. Zukünftige Erweiterungen
 
-### 6.1 Datenbank
+### 7.1 Datenbank
 
 Von Anfang an wird dieses System mit einer Datenbank umgesetzt, zum Beispiel mit ***PostgreSQL*** oder ***MongoDB***, je nach technischer Passung. Diese Entscheidung kann in Zukunft angepasst werden, falls bestimmte Anforderungen seitens der Hochschule oder des Projekts dies notwendig machen.
 
-### 6.2 Finaler Deployment-Prozess
+### 7.2 Finaler Deployment-Prozess
 
 Die Anwendung soll auf einem zentralen Hochschulserver gehostet werden. Der Zugriff erfolgt ausschließlich über das interne Netz oder VPN. Ein Reverse-Proxy (z. B. Nginx) mit SSL-Zertifikat (Let’s Encrypt) ist möglich. Die genaue Deployment-Methode hängt von den endgültigen Anforderungen ab.
 
