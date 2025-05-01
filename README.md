@@ -33,8 +33,22 @@ Das System stellt sicher, dass:
 - Visualisierung über `vnc.html`
 
 ---
-## 3. Verzeichnisstruktur des VM Cloud Systems
 
+## 3.Benutzerrollen
+
+[Benutzer- und Administratorrechte im VM Cloud System](Benutzer_und_Administratorrechte.md)
+
+---
+## 4. Sicherheit
+
+- Authentifizierung mit JWT + Rollentrennung
+- Jeder Benutzer kann nur seine eigenen VMs sehen und verwalten
+- Überprüfung des Benutzernamens bei jeder API-Anfrage
+- Dynamisches Port-Forwarding für VNC:  [Verwaltung der VNC-Ports für virtuelle Maschinen mit VirtualBox](Verwaltung_VNC-Ports_VMs.md)
+
+---
+
+## 5. Verzeichnisstruktur des VM Cloud Systems
 ```text
 VMCloud/
 ├── backend/
@@ -61,19 +75,7 @@ VMCloud/
 │   └── ...
 ```
 ---
-## 4.Benutzerrollen
 
-[Benutzer- und Administratorrechte im VM Cloud System](Benutzer_und_Administratorrechte.md)
-
----
-## 5. Sicherheit
-
-- Authentifizierung mit JWT + Rollentrennung
-- Jeder Benutzer kann nur seine eigenen VMs sehen und verwalten
-- Überprüfung des Benutzernamens bei jeder API-Anfrage
-- Dynamisches Port-Forwarding für VNC:  [Verwaltung der VNC-Ports für virtuelle Maschinen mit VirtualBox](Verwaltung_VNC-Ports_VMs.md)
-
----
 ## 6. Wie benutzt ein Benutzer das System
 Ein Benutzer meldet sich über die Weboberfläche mit seinem Benutzernamen und Passwort an. Nach erfolgreicher Authentifizierung erhält er ein JSON Web Token (JWT), das im Browser gespeichert wird und für alle weiteren Anfragen erforderlich ist. Auf dem Dashboard sieht der Benutzer nur seine eigenen virtuellen Maschinen. Er kann bestehende VMs starten, stoppen, löschen oder konfigurieren.
 
