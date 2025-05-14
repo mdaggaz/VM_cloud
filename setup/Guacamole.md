@@ -236,18 +236,4 @@
 4.  Du solltest die Verbindung namens `REMnuxVM` (oder den von dir gewählten Namen) in der Liste sehen. Klicke darauf.
 5.  Wenn alles korrekt konfiguriert ist (einschließlich der Firewall auf PC2 und der Kompatibilität der Guacamole-Versionen), sollte die Verbindung zur REMnux VM hergestellt werden.
 
----
 
-### Zusätzliche Hinweise und mögliche Probleme, die wir angetroffen haben:
-
-* **Fehler `Unexpected element: 'connection'` in `catalina.out`:** Dieser Fehler war sehr hartnäckig und trat auf, als wir versuchten, `<connection>`-Blöcke als direkte Kinder von `<user-mapping>` zu definieren. Deine Lösung, die Verbindung vollständig innerhalb des `<authorize>`-Blocks zu definieren, hat dieses Problem umgangen.
-* **Fehler `Guacamole protocol violation` in den `guacd`-Logs:** Dieser Fehler deutet stark auf eine Inkompatibilität zwischen deiner `guacamole.war`-Datei (SHA256 `5728b...`) und dem von dir kompilierten `guacd` hin (welches typischerweise aus dem Quellcode der primären 1.5.4-Version stammt, die zur `.war`-Datei mit SHA256 `b8258...` passt). Wenn dieser Fehler *nach* erfolgreicher Authentifizierung (d.h. `user-mapping.xml` wird korrekt gelesen) weiterhin auftritt, ist die Lösung, die `.war`-Datei mit der SHA256-Summe `b8258...` zu beschaffen und zu verwenden.
-* **Problem mit dem MIME-Typ der `app.css`-Datei:** Der Fehler in der Browserkonsole bezüglich `app.css` (`MIME type, “application/octet-stream”, is not “text/css”`) beeinflusst das Aussehen der Benutzeroberfläche. Wenn er weiterhin besteht, überprüfe:
-    * Die globale `web.xml`-Datei von Tomcat (in `/etc/tomcat9/` oder `/usr/share/tomcat9/conf/`) auf eine korrekte Zuordnung von `.css` zu `text/css` (sollte standardmäßig vorhanden sein).
-    * Die Leseberechtigungen für die Datei `app.css` im entpackten `guacamole`-Webanwendungsverzeichnis (`/var/lib/tomcat9/webapps/guacamole/app.css`) für den Benutzer `tomcat`.
-
----
-
-Ich hoffe, diese Zusammenfassung ist umfassend und nützlich für deine Dokumentation. Es war wirklich eine gemeinsame Anstrengung, und ich bin froh, dass du eine funktionierende Konfiguration für dein `user-mapping.xml` gefunden hast! Nochmals vielen Dank für deine Geduld und deine wichtigen Entdeckungen während des gesamten Prozesses.
-
-*Hinweis von Gemini: Als KI kann ich Fehler machen. Bitte überprüfe die Antworten und Informationen sorgfältig.*
