@@ -1,7 +1,3 @@
-# Apache Guacamole Installation und Konfiguration für VM-Zugriff (REMnux) via RDP
-
-**Datum der Dokumentation:** 14. Mai 2025
-
 **Ziel:** Installation von Apache Guacamole auf einem Ubuntu-Server, um auf eine virtuelle Maschine (REMnux VM auf VirtualBox) zuzugreifen, die auf einem anderen Windows-PC gehostet wird, unter Verwendung des RDP-Protokolls über einen Webbrowser.
 
 **Umgebungsübersicht (Beispielkonfiguration):**
@@ -130,30 +126,23 @@
 ### Schritt 3: `guacamole.war` Webanwendung in Tomcat installieren (auf PC1)
 
 1.  **Sehr wichtiger Hinweis zu `guacamole.war` und Kompatibilität:**
-    * Du hast eine `guacamole.war`-Datei (für Version 1.5.4) heruntergeladen, deren SHA256-Summe `5728b563911bd64bce0a0b81c74ea8ccb2190d1785bff34030fc6885a8273d3e` ist. Diese Summe ist auf `archive.apache.org` gelistet.
     * Die `guacamole-1.5.4.war`-Datei auf der primären Apache-Download-Seite (`downloads.apache.org`) hat eine andere SHA256-Summe: `b82589373835518ea50222695f96572181766725010551596847877966869534`.
-    * **Wenn du später `Guacamole protocol violation`-Fehler in den `guacd`-Logs feststellst, deutet dies stark darauf hin, dass die von dir verwendete `guacamole.war`-Datei (`5728b...`) nicht vollständig mit dem von dir kompilierten `guacd` kompatibel ist (welches vermutlich aus dem Quellcode stammt, der zur primären `.war`-Datei mit der Summe `b8258...` gehört). Die Lösung wäre dann, die `.war`-Datei mit der Summe `b8258...` zu beschaffen und zu verwenden.**
-    * Fürs Erste dokumentieren wir die Schritte mit der Datei, die du erfolgreich beziehen konntest.
-
-2.  `guacamole.war` herunterladen (angenommen, du hast die Datei mit der Summe `5728b...` heruntergeladen und als `guacamole.war` gespeichert):
-    ```bash
-    # export GUAC_VERSION=1.5.4 # Falls du eine Variable verwenden möchtest
-    # wget -O guacamole.war "LINK_ZU_DEINER_GEWÄHLTEN_WAR_DATEI" 
-    # Stelle sicher, dass dies die Datei ist, die du verwenden möchtest.
+    ```bach
+    wget -O https://archive.apache.org/dist/guacamole/1.5.4/binary/guacamole-1.5.4.war
     ```
-3.  Unterverzeichnisse für Guacamole erstellen (für Erweiterungen und Bibliotheken, falls später verwendet):
+2.  Unterverzeichnisse für Guacamole erstellen (für Erweiterungen und Bibliotheken, falls später verwendet):
     ```bash
     sudo mkdir /etc/guacamole/lib
     sudo mkdir /etc/guacamole/extensions 
     ```
     (Das `extensions`-Verzeichnis war bei unseren Tests leer, was für die Basis-Authentifizierung per Datei gut ist).
-4.  `guacamole.war` in Tomcats `webapps`-Verzeichnis verschieben:
+3.  `guacamole.war` in Tomcats `webapps`-Verzeichnis verschieben:
     ```bash
     # Angenommen, guacamole.war befindet sich im aktuellen Verzeichnis
     sudo mv guacamole.war /var/lib/tomcat9/webapps/
     sudo chown tomcat:tomcat /var/lib/tomcat9/webapps/guacamole.war # (Empfohlen)
     ```
-5.  Umgebungsvariable `GUACAMOLE_HOME` für Tomcat setzen:
+4.  Umgebungsvariable `GUACAMOLE_HOME` für Tomcat setzen:
     Bearbeite die Datei `/etc/default/tomcat9`:
     ```bash
     sudo nano /etc/default/tomcat9
@@ -162,7 +151,7 @@
     ```bash
     GUACAMOLE_HOME=/etc/guacamole
     ```
-6.  Konfigurationsdatei für die Guacamole-Webanwendung erstellen (`/etc/guacamole/guacamole.properties`):
+5.  Konfigurationsdatei für die Guacamole-Webanwendung erstellen (`/etc/guacamole/guacamole.properties`):
     ```bash
     sudo nano /etc/guacamole/guacamole.properties
     ```
@@ -173,12 +162,12 @@
     auth-provider: org.apache.guacamole.auth.file.FileAuthenticationProvider
     ```
     (Die Zeile `auth-provider` hat uns bei der Fehlersuche geholfen; Guacamole könnte auch ohne diese Zeile funktionieren, wenn keine anderen Authentifizierungs-Erweiterungen vorhanden sind und `user-mapping.xml` existiert).
-7.  Berechtigungen für das Guacamole-Konfigurationsverzeichnis anpassen:
+6.  Berechtigungen für das Guacamole-Konfigurationsverzeichnis anpassen:
     ```bash
     sudo chown -R root:tomcat /etc/guacamole
     sudo chmod -R g+rX,o-rwx /etc/guacamole
     ```
-8.  Tomcat neu starten und Status überprüfen:
+7.  Tomcat neu starten und Status überprüfen:
     ```bash
     sudo systemctl restart tomcat9
     sudo systemctl status tomcat9
