@@ -1,3 +1,5 @@
+setup for vm : VBoxManage modifyvm "vm_name" --vrdeaddress ""
+
 **Ziel:** Installation von Apache Guacamole auf einem Ubuntu-Server, um auf eine virtuelle Maschine (REMnux VM auf VirtualBox) zuzugreifen, die auf einem anderen Windows-PC gehostet wird, unter Verwendung des RDP-Protokolls über einen Webbrowser.
 
 **Umgebungsübersicht (Beispielkonfiguration):**
